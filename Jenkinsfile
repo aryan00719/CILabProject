@@ -1,15 +1,21 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven3'
+        jdk 'JDK21'
+    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'mvn clean compile'
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Build & Test') {
             steps {
-                sh 'mvn test'
+                sh 'mvn clean test'
             }
         }
     }
